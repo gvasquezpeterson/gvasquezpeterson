@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gabriel Vasquez-Peterson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FAF8F3;
+    --ink: #1F2A33;
+    --ink-soft: #5B6770;
+    --accent: #3E6B5C;
+    --rule: #DDD7CB;
+    --max-width: 760px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s ease; }
+  a:hover, a:focus-visible { border-bottom-color: var(--accent); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .layout {
+    display: flex;
+    max-width: 1100px;
+    margin: 0 auto;
+    min-height: 100vh;
+  }
+
+  /* Sidebar nav */
+  nav.sidebar {
+    width: 200px;
+    flex-shrink: 0;
+    padding: 4rem 1.5rem 2rem 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .sidebar-top .site-name {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+  }
+
+  .sidebar-top .site-role {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-bottom: 2.5rem;
+  }
+
+  .sidebar nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .sidebar nav a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border-bottom: none;
+  }
+
+  .sidebar nav a:hover,
+  .sidebar nav a.active {
+    color: var(--accent);
+  }
+
+  .sidebar-bottom {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+  }
+
+  .sidebar-bottom a { color: var(--ink-soft); }
+  .sidebar-bottom a:hover { color: var(--accent); }
+
+  /* Main content */
+  main {
+    flex: 1;
+    padding: 4rem 2rem 6rem 2.5rem;
+    border-left: 1px solid var(--rule);
+    max-width: 760px;
+  }
+
+  section {
+    margin-bottom: 5rem;
+  }
+
+  section:last-child { margin-bottom: 0; }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 2.6rem;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 1.6rem;
+    margin-bottom: 1.25rem;
+  }
+
+  /* Bio section */
+  .bio-header {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+  }
+
+  .bio-photo {
+    width: 132px;
+    height: 132px;
+    border-radius: 4px;
+    object-fit: cover;
+    background: var(--rule);
+    flex-shrink: 0;
+    border: 1px solid var(--rule);
+  }
+
+  .bio-intro .tagline {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    margin-top: 0.5rem;
+  }
+
+  .bio-affiliation {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-top: 0.35rem;
+  }
+
+  .bio-body p { margin-bottom: 1rem; }
+  .bio-body p:last-child { margin-bottom: 0; }
+
+  .contact-row {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+  }
+
+  /* Publications */
+  .pub-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  .pub-item {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 1rem;
+  }
+
+  .pub-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    padding-top: 0.15rem;
+  }
+
+  .pub-title {
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  .pub-meta {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  .pub-links {
+    margin-top: 0.35rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    display: flex;
+    gap: 1rem;
+  }
+
+  /* Research subsections */
+  .subsection {
+    margin-top: 2rem;
+    padding-left: 1.5rem;
+  }
+
+  .subsection-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    letter-spacing: 0.12rem;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .wip-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 0.5rem;
+  }
+
+  .wip-item .wip-title {
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  .wip-item .wip-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+
+  .wip-item .wip-desc {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin-top: 0.2rem;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 6rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  /* Mobile */
+  @media (max-width: 760px) {
+    .layout { flex-direction: column; }
+
+    nav.sidebar {
+      width: 100%;
+      height: auto;
+      position: static;
+      padding: 1.75rem 1.5rem;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .sidebar-top { display: flex; flex-direction: column; }
+    .sidebar-top .site-role { margin-bottom: 0; }
+    .sidebar nav ul { flex-direction: row; gap: 1.25rem; }
+    .sidebar-bottom { display: none; }
+
+    main {
+      border-left: none;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    .bio-header { flex-direction: column; gap: 1.25rem; }
+    h1 { font-size: 2rem; }
+
+    .pub-item { grid-template-columns: 1fr; gap: 0.25rem; }
+    .pub-year { padding-top: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-top">
+      <div class="site-name">Gabriel Vasquez-Peterson</div>
+      <div class="site-role">Department of Philosophy</div>
+      <ul>
+        <li><a href="#bio">About</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#teaching">Teaching</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-bottom">
+      University of Pittsburgh<br>
+      Updated June 2026
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- BIO -->
+    <section id="bio">
+      <div class="bio-header">
+        <img class="bio-photo" src="https://via.placeholder.com/264x264.png?text=Photo" alt="Portrait of Gabriel">
+        <div class="bio-intro">
+          <h1>Gabriel Vasquez-Peterson</h1>
+          <div class="bio-affiliation">Ph.D. Candidate, Department of Philosophy<br>University of Pittsburgh</div>
+        </div>
+      </div>
+      <div class="bio-body">
+        <p>
+          I am a Ph.D. Candidate in the Department of Philosophy at the University of Somewhere,
+          advised by Jed Lewinsohn. I work on primarily in normative ethics, and my dissertation focuses on partiality and the ethical significance of interpersonal relationships (particularly our intimate relationships). I also have interests in political philosophy, bioethics, metaethics, and the history of philosophy.
+        </p>
+        <p>
+          Before starting my Ph.D., I completed my BA in Philosophy at the University of Florida in Gainesville.
+        </p>
+      </div>
+      <div class="contact-row">
+        <span> GAV16 [at] Pitt.edu</span>
+        <a href="#">CV (PDF)</a>
+        <a href="https://philpeople.org/profiles/gabriel-vasquez-peterson">Philpeople</a>
+      </div>
+    </section>
+
+    <!-- RESEARCH -->
+    <section id="research">
+      <h2>Research</h2>
+      <div class="bio-body">
+        <p>
+        </p>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Dissertation Abstract</div>
+        <div class="bio-body">
+          <p>
+            Coming Soon!
+          </p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Papers in Progress</div>
+        <ul class="wip-list">
+          <li class="wip-item">
+            <div class="wip-title">Love and Reciprocation</div>
+            <div class="wip-status">draft available</div>
+            <div class="wip-desc">[One-sentence description of the paper's argument or topic.]</div>
+          </li>
+          <li class="wip-item">
+            <div class="wip-title">Associating With Bad People</div>
+            <div class="wip-status">in progress</div>
+            <div class="wip-desc">[One-sentence description of the paper's argument or topic.]</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TEACHING -->
+    <section id="teaching">
+      <h2>Teaching</h2>
+      <div class="bio-body">
+        <p>
+          Coming soon!
+        </p>
+      </div>
+      <div class="contact-row">
+        <a href="#">Teaching Statement (PDF)</a>
+        <a href="#">Teaching Materials </a>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 Gabriel Vasquez-Peterson
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>
